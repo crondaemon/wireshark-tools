@@ -1,0 +1,33 @@
+
+
+{
+   DARIO Lemon
+   Memcheck:Leak
+   match-leak-kinds: definite
+   ...
+   fun:yy_reduce
+   fun:DtdParse
+}
+{
+   DARIO Lemon
+   Memcheck:Leak
+   match-leak-kinds: definite
+   ...
+   fun:dtd_parse
+}
+{
+   DARIO MEGA LUA EXCEPTION
+   Memcheck:Leak
+   ...
+   fun:*lua*
+   ...
+}
+
+{
+   Glib leak (g_hash_table)
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:*alloc
+   ...
+   fun:g_hash_table_new_full
+}

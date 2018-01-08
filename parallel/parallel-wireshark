@@ -1,0 +1,35 @@
+#!/bin/bash
+
+FILE=$1
+RUN=/tmp/build/run
+
+TMPFILE="/tmp/tmp"
+
+export WIRESHARK_QUIT_AFTER_CAPTURE=1 
+#export DISPLAY=:1
+
+#"mergecap $FILE $FILE -w /tmp/tmp" 
+#"reordercap $FILE $TMPFILE"
+
+commands=("tshark -nVx -r $FILE" "capinfos $FILE" "capinfos $FILE" "captype $FILE" "tfshark $FILE" "editcap $FILE")
+#commands=("wireshark $FILE")
+
+for command in "${commands[@]}"
+do
+	if [ "$DEBUG" != "" ]
+	then
+		echo "DEBUG: $RUN/$command"
+	fi
+
+	#gdb -ex run --args 
+	$RUN/$command > /dev/null
+	if [ "$?" != "0" ]
+	then
+		echo
+		echo
+		echo "gdb -ex run --args $RUN/$command"
+		echo
+		echo
+		exit 1
+	fi
+done
